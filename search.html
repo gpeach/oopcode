@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>Search</title>
+<script type="text/javascript" language="javascript" src=
+"scripts/prototype.js">
+</script>
+<script type="text/javascript" >
+/**************************************************************************/
+// check for blank textbox
+// parameter must have value attribute
+/*************************************************************************/
+function not_blank(obj){
+		bln=false;
+		if (obj.value==""){
+			 alert ("Enter some text!");
+		}else{
+				bln=true;
+		}
+		return bln;
+}
+/**************************************************************************/
+// Use protoype.js and copy result into div
+/*************************************************************************/ 
+function call_server(){
+  var  obj = $('criterion');
+  if(not_blank(obj)){ 
+    $('searchresults').innerHTML = "Working ...";
+    var url = 'dosearch.php';
+		var pars = 'criterion='+ obj.value;
+	  new Ajax.Updater( 'searchresults', url, 
+    { 
+      method: 'get',  
+      parameters: pars,
+      onFailure: report_error 
+    });
+  }
+}
+/**************************************************************************/
+// report error
+/*************************************************************************/
+function report_error(request){
+		alert('Sorry. There was an error.');
+}
+//////////////////////////////////////////////////////// 
+</script>
+</head>
+<body style="margin: 5px;">
+Search the No Starch Press site: <br />
+<input type="text" id="criterion" style="width:150px" /><br />
+<input class= "subbutton" style="margin-top:5px;width:60px;" type="button" value="Submit" 
+onclick="javascript:call_server();"
+/>
+<h2>Search Results</h2>
+<div id="searchresults" style="width:650px; display: block;">
+Enter a criterion.
+</div>
+</body>
+</html>
+
